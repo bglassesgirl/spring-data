@@ -46,4 +46,5 @@ public class SpringdataApplication implements CommandLineRunner{
 
 		}
 	}
+	
 }
