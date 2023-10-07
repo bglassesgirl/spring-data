@@ -1,19 +1,21 @@
 package br.edu.ifba.springdata;
+import java.util.Scanner;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import br.edu.ifba.springdata.orm.Professor;
-import repositoy.ProfessorRepository;
+import br.edu.ifba.springdata.service.CrudProfessorService;
+
 
 @SpringBootApplication
 public class SpringdataApplication implements CommandLineRunner{
-	//injenção de dependencias
-    private ProfessorRepository repository;
-	
-	public SpringdataApplication(ProfessorRepository repository){
-		this.repository = repository;
+	private CrudProfessorService professorService;
+
+	//os objetos  passadp por parametros são injetados automaticamente pelo spring
+	//pq suas classes possuem a anotação @Service
+	public SpringdataApplication(CrudProfessorService professorService){
+		this.professorService = professorService;
 	}
 
 	public static void main(String[] args) {
@@ -23,11 +25,25 @@ public class SpringdataApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		//throw new UnsupportedOperationException("Unimplemented method 'run'");
-        Professor professor = new Professor("Luana", "abc");
-		this.repository.save(professor);
-	}
-	
+		Boolean isTrue = true;
+		Scanner in = new Scanner(System.in);
 
+		while(isTrue){
+			System.out.println("Qual entidade você deseja interagir?");
+			System.out.println("0 - sair");
+			System.out.println("1 - professor");
+			int opcao = in.nextInt();
+
+			switch(opcao){
+				case 1:
+				    this.professorService.menu(in);
+				    break;
+				default:
+				 isTrue = false;
+				 break;
+			}
+			in.close();
+
+		}
+	}
 }

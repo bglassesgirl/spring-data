@@ -1,4 +1,4 @@
-package repositoy;
+package br.edu.ifba.springdata.repositoy;
 
 import br.edu.ifba.springdata.orm.Professor;
 import jakarta.persistence.EntityManager;

@@ -1,4 +1,4 @@
-package repositoy;
+package br.edu.ifba.springdata.repositoy;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
