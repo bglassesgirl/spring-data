@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.edu.ifba.springdata.service.CrudProfessorService;
 
-
 @SpringBootApplication
 public class SpringdataApplication implements CommandLineRunner{
 	private CrudProfessorService professorService;

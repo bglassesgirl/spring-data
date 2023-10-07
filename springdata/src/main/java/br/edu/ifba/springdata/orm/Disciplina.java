@@ -1,66 +1,64 @@
 package br.edu.ifba.springdata.orm;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "professores")
-public class Professor {
+@Table(name = "disciplina")
+public class Disciplina{
+
+    private static final boolean t = false;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private  Long id;
 
     @Column(nullable = false)
     private String nome;
+    private Integer semestre;
 
-    @Column(nullable = false, unique = false)
-    private String prontuario;
+    @ManyToOne
+    @JoinColumn(name = "professor_id", nullable = true)
+    private Professor professor;
 
-    @OneToMany(mappedBy = "professor")
-    private List<Disciplina> disciplinas;
-
-    public Professor(){}
-
-    public Professor(String nome, String prontuario) {
+    public Disciplina() {
+    }
+    
+    public Disciplina(Long id, String nome, Integer semestre) {
+        this.id = id;
         this.nome = nome;
-        this.prontuario = prontuario;
+        this.semestre = semestre;
     }
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getProntuario() {
-        return prontuario;
+    public Integer getSemestre() {
+        return semestre;
     }
-
-    public void setProntuario(String prontuario) {
-        this.prontuario = prontuario;
+    public void setSemestre(Integer semestre) {
+        this.semestre = semestre;
     }
 
     @Override
     public String toString() {
-        return "Professor [id=" + id + ", nome=" + nome + ", prontuario=" + prontuario + "]";
+        return "Disciplina [id=" + id + ", nome=" + nome + ", semestre=" + semestre + "]";
     }
-    
+
+
 }
