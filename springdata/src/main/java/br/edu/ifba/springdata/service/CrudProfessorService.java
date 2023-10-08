@@ -4,10 +4,13 @@ import java.util.Optional;
 import java.util.Scanner;
 import org.springframework.stereotype.Service;
 
+import br.edu.ifba.springdata.orm.Disciplina;
 import br.edu.ifba.springdata.orm.Professor;
 import br.edu.ifba.springdata.repositoy.ProfessorRepository;
+import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class CrudProfessorService{
 
     private ProfessorRepository professorRepository;//dependencia da classe CrudProfessorService
@@ -18,7 +21,7 @@ public class CrudProfessorService{
         this.professorRepository = professorRepository;
     }
 
-
+    //@Transactional
     public void menu(Scanner in){
         Boolean isTrue = true;
 
@@ -29,7 +32,7 @@ public class CrudProfessorService{
             System.out.println("2 - atualizar um Professor");
             System.out.println("3 - listar os professores cadastrados");
             System.out.println("4 - delete um professor");
-
+            System.out.println("5 - visualziar UM professor");
 
             int opcao = in.nextInt();
 
@@ -46,6 +49,9 @@ public class CrudProfessorService{
                 case 4:
                     this.deletar(in);
                     break;
+                case 5:
+                    this.visualizarProfessor(in);
+                    break;
 				default:
 				 isTrue = false;
 				 break;
@@ -54,6 +60,8 @@ public class CrudProfessorService{
         }
         System.out.println();
     }
+
+
     private void cadastrar(Scanner in){
         System.out.println("Digite o nome do professor: ");
         String nome = in.next(); //ler a proxima string ate achar um enter ou espaço
@@ -99,6 +107,7 @@ public class CrudProfessorService{
         });
        System.out.println();
     }
+
     private void deletar(Scanner in) {
         System.out.print("Digite o ID do professor a ser deletado: ");
         Long id = in.nextLong();
@@ -106,4 +115,32 @@ public class CrudProfessorService{
         System.out.println("Professor deletado!!\n");
 
     }
+
+     //@Transactional
+     private void visualizarProfessor(Scanner in) {
+        System.out.print("Digite o ID do professor que deseja procurar: ");
+        Long id = in.nextLong();
+
+        Optional<Professor>  optional = this.professorRepository.findById(id);
+        if (optional.isPresent()) {
+            Professor professor = optional.get();
+
+            System.out.println("Professor: {");
+            System.out.println("ID: " + professor.getId());
+            System.out.println("Nome: " + professor.getNome());
+            System.out.println("Prontuario: " + professor.getProntuario());
+            System.out.println("Disciplinas: [");
+
+            for (Disciplina disciplina : professor.getDisciplinas()) {
+                System.out.println("\tID:" + disciplina.getId());
+                System.out.println("\tNome:" + disciplina.getNome());
+                System.out.println("\tSemestre:" + disciplina.getSemestre());
+
+            }
+             System.out.println("]\n");
+
+        }
+
+    }
+
 }

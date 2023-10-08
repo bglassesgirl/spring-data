@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,7 +25,8 @@ public class Professor {
     @Column(nullable = false, unique = false)
     private String prontuario;
 
-    @OneToMany(mappedBy = "professor")
+    //fetch
+    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
     private List<Disciplina> disciplinas;
 
     public Professor(){}
@@ -58,9 +60,18 @@ public class Professor {
         this.prontuario = prontuario;
     }
 
+
     @Override
     public String toString() {
         return "Professor [id=" + id + ", nome=" + nome + ", prontuario=" + prontuario + "]";
     }
-    
+
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
+    }
+
 }

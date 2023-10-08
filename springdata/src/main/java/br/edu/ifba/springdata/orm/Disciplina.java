@@ -2,6 +2,7 @@ package br.edu.ifba.springdata.orm;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,13 +24,13 @@ public class Disciplina{
     private String nome;
     private Integer semestre;
 
-    @ManyToOne
+    @ManyToOne(fetch =  FetchType.EAGER)
     @JoinColumn(name = "professor_id", nullable = true)
     private Professor professor;
 
     public Disciplina() {
     }
-    
+
     public Disciplina(Long id, String nome, Integer semestre, Professor professor) {
         this.id = id;
         this.nome = nome;
