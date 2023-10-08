@@ -17,6 +17,8 @@ public class CrudProfessorService{
     public CrudProfessorService(ProfessorRepository professorRepository){
         this.professorRepository = professorRepository;
     }
+
+
     public void menu(Scanner in){
         Boolean isTrue = true;
 
