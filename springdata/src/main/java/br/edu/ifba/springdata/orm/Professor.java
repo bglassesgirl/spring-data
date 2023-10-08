@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 
 @Entity
@@ -60,12 +61,6 @@ public class Professor {
         this.prontuario = prontuario;
     }
 
-
-    @Override
-    public String toString() {
-        return "Professor [id=" + id + ", nome=" + nome + ", prontuario=" + prontuario + "]";
-    }
-
     public List<Disciplina> getDisciplinas() {
         return disciplinas;
     }
@@ -73,5 +68,23 @@ public class Professor {
     public void setDisciplinas(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
     }
+
+    @Override
+    public String toString() {
+        return "Professor [id=" + id + ", nome=" + nome + ", prontuario=" + prontuario + "]";
+    }
+
+    //=>define o objeto professor_id null ao apagar um professor associado a disciplina
+    // ON REMOVE, SET NULL
+    //sem esse metodo, como o professor_id é chave estrangeira de disciplina (OneTMany), ele define um professor
+    //obrigatorio a disciplina, ent, caso apague o professor que tem uma disciplina, apaga a disciplina tbm
+    @PreRemove
+    public void atualizarDisciplinaOnDelete(){
+        System.out.println("atualizarDisciplinaOnDelete");
+        for (Disciplina disciplina : this.getDisciplinas()) {
+            disciplina.setProfessor(null);
+        }
+    }
+
 
 }

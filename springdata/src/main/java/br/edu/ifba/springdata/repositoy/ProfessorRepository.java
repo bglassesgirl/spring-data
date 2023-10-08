@@ -8,4 +8,5 @@ import br.edu.ifba.springdata.orm.Professor;
 
 @Repository
 public interface ProfessorRepository extends CrudRepository<Professor, Long> {
+
 }
