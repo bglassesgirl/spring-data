@@ -19,7 +19,6 @@ public class CrudAlunoService {
         this.alunoRepository = alunoRepository;
     }
 
-    @Transactional
     public void menu(Scanner in){
         Boolean isTrue = true;
 
@@ -30,7 +29,7 @@ public class CrudAlunoService {
             System.out.println("2 - atualizar um Aluno");
             System.out.println("3 - listar os Alunos cadastrados");
             System.out.println("4 - delete uma Aluno");
-            System.out.println("5 - visualize uma Aluno");
+            System.out.println("5 - visualize um Aluno");
 
 
             int opcao = in.nextInt();
@@ -144,6 +143,5 @@ public class CrudAlunoService {
 
         }
     }
-
 
 }
