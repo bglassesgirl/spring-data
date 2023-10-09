@@ -1,4 +1,4 @@
-package br.edu.ifba.springdata.repositoy;
+package br.edu.ifba.springdata.repository;
 
 import org.springframework.data.repository.CrudRepository;
 

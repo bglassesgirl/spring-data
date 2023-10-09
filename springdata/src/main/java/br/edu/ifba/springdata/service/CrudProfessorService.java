@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifba.springdata.orm.Disciplina;
 import br.edu.ifba.springdata.orm.Professor;
-import br.edu.ifba.springdata.repositoy.ProfessorRepository;
+import br.edu.ifba.springdata.repository.ProfessorRepository;
 import jakarta.transaction.Transactional;
 
 @Service

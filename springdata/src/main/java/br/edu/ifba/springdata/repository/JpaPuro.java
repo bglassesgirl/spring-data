@@ -1,4 +1,4 @@
-package br.edu.ifba.springdata.repositoy;
+package br.edu.ifba.springdata.repository;
 
 import br.edu.ifba.springdata.orm.Professor;
 import jakarta.persistence.EntityManager;
@@ -9,7 +9,7 @@ public class JpaPuro {
 
     private EntityManagerFactory emf;
     private EntityManager em;
-   
+
     public void JpaPuroEx(){
         emf = Persistence.createEntityManagerFactory("JPA");
         em = emf.createEntityManager();

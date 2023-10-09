@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifba.springdata.orm.Disciplina;
 import br.edu.ifba.springdata.orm.Professor;
-import br.edu.ifba.springdata.repositoy.DisciplinaRepository;
-import br.edu.ifba.springdata.repositoy.ProfessorRepository;
+import br.edu.ifba.springdata.repository.DisciplinaRepository;
+import br.edu.ifba.springdata.repository.ProfessorRepository;
 
 @Service
 public class CrudDisciplinaService{
@@ -22,6 +22,7 @@ public class CrudDisciplinaService{
         this.disciplinaRepository = disciplinaRepository;
         this.professorRepository = professorRepository;
     }
+
     public void menu(Scanner in){
         Boolean isTrue = true;
 
