@@ -55,6 +55,7 @@ public class CrudAlunoService {
                     break;
             }
         }
+        System.out.println();
 
     }
 

@@ -8,21 +8,25 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import br.edu.ifba.springdata.service.CrudAlunoService;
 import br.edu.ifba.springdata.service.CrudDisciplinaService;
 import br.edu.ifba.springdata.service.CrudProfessorService;
+import br.edu.ifba.springdata.service.RelatorioService;
 
 @SpringBootApplication
 public class SpringdataApplication implements CommandLineRunner{
 	private CrudProfessorService professorService;
 	private CrudDisciplinaService disciplinaService;
 	private CrudAlunoService alunoService;
+	private RelatorioService relatorioService;
 
 	//os objetos  passadp por parametros são injetados automaticamente pelo spring
 	//pq suas classes possuem a anotação @Service
 	public SpringdataApplication(CrudProfessorService professorService,
 								CrudDisciplinaService disciplinaService,
-								CrudAlunoService alunoService){
+								CrudAlunoService alunoService,
+								RelatorioService relatorioService){
 		this.professorService = professorService;
 		this.disciplinaService = disciplinaService;
 		this.alunoService = alunoService;
+		this.relatorioService = relatorioService;
 	}
 
 	public static void main(String[] args) {
@@ -41,6 +45,8 @@ public class SpringdataApplication implements CommandLineRunner{
 			System.out.println("1 - professor");
 			System.out.println("2 - disciplina");
 			System.out.println("3 - aluno");
+			System.out.println("4 - relatorio");
+
 
 			int opcao = in.nextInt();
 
@@ -53,6 +59,9 @@ public class SpringdataApplication implements CommandLineRunner{
 				    break;
 				case 3:
 				    this.alunoService.menu(in);
+				    break;
+				case 4:
+				    this.relatorioService.menu(in);
 				    break;
 				default:
 				 isTrue = false;
