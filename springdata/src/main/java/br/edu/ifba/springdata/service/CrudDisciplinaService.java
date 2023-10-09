@@ -1,9 +1,10 @@
 package br.edu.ifba.springdata.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
 import br.edu.ifba.springdata.orm.Aluno;
@@ -74,18 +75,18 @@ public class CrudDisciplinaService{
         String nome = in.next(); //ler a proxima string ate achar um enter ou espaço
 
         System.out.println("Digite o semestre da disciplinas: ");
-        int semestre = in.nextInt();//ler a proxima string ate achar um enter ou espaço
+        Integer semestre = in.nextInt();//ler a proxima string ate achar um enter ou espaço
 
         System.out.println("Digite o ID do professor: ");
-        long professorId = in.nextLong();//ler a proxima string ate achar um enter ou espaço
+        Long professorId = in.nextLong();//ler a proxima string ate achar um enter ou espaço
 
         Optional<Professor> optional = professorRepository.findById(professorId);
         if (optional.isPresent()) {
             Professor professor = optional.get();
 
-            List<Aluno> alunos = this.matricular(in);
+            Set<Aluno> alunos = this.matricular(in);
 
-            Disciplina disciplina = new Disciplina(null, nome, semestre, professor);
+            Disciplina disciplina = new Disciplina(nome, semestre, professor);
             disciplina.setAlunos(alunos);
             disciplinaRepository.save(disciplina);
             System.out.println("Salvo!! \n");
@@ -117,7 +118,7 @@ public class CrudDisciplinaService{
             if (optionalProfessor.isPresent()) {
                 Professor professor = optionalProfessor.get();
 
-                List<Aluno> alunos = this.matricular(in);
+                Set<Aluno> alunos = this.matricular(in);
 
                 disciplina.setNome(nome);
                 disciplina.setSemestre(semestre);
@@ -154,9 +155,9 @@ public class CrudDisciplinaService{
 
     }
 
-    private List<Aluno> matricular(Scanner in){
+    private Set<Aluno> matricular(Scanner in){
         Boolean isTrue = true;
-        List<Aluno> alunos = new ArrayList<Aluno>();
+        Set<Aluno> alunos = new HashSet<>();
 
         while (isTrue) {
             System.out.println("O ID do aluno a ser matriculado (digite 0 para)");
@@ -188,8 +189,8 @@ public class CrudDisciplinaService{
 
         if (optionalDisciplina.isPresent()) {
             Disciplina disciplina = optionalDisciplina.get();
-            List<Aluno> novosAlunos = this.matricular(in);
-            disciplina.getAlunos().addAll(0, novosAlunos);
+            Set<Aluno> novosAlunos = this.matricular(in);
+            disciplina.getAlunos().addAll(novosAlunos);
             this.disciplinaRepository.save(disciplina);
         }
         else {

@@ -1,6 +1,6 @@
 package br.edu.ifba.springdata.orm;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,10 +15,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "disciplina")
+@Table(name = "disciplinas")
 public class Disciplina{
-
-    private static final boolean t = false;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,23 +31,27 @@ public class Disciplina{
     private Professor professor;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "disciplina_aluno",
+    @JoinTable(name = "disciplinas_alunos",
                 joinColumns = @JoinColumn(name = "disciplina_fk"),
                 inverseJoinColumns = @JoinColumn(name = "aluno_fk"))
-    List<Aluno> alunos;
+
+    private Set<Aluno> alunos;
 
     public Disciplina() {
     }
 
-    public Disciplina(Long id, String nome, Integer semestre, Professor professor) {
+    public Disciplina(Long id, String nome, Integer semestre, Professor professor, Set<Aluno> alunos) {
         this.id = id;
         this.nome = nome;
         this.semestre = semestre;
         this.professor = professor;
+        this.alunos = alunos;
     }
 
-    public static boolean isT() {
-        return t;
+    public Disciplina(String nome, Integer semestre, Professor professor) {
+        this.nome = nome;
+        this.semestre = semestre;
+        this.professor = professor;
     }
 
     public Long getId() {
@@ -84,11 +86,11 @@ public class Disciplina{
         this.professor = professor;
     }
 
-    public List<Aluno> getAlunos() {
+    public Set<Aluno> getAlunos() {
         return alunos;
     }
 
-    public void setAlunos(List<Aluno> alunos) {
+    public void setAlunos(Set<Aluno> alunos) {
         this.alunos = alunos;
     }
 

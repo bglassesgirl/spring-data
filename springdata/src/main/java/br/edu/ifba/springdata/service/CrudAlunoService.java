@@ -62,7 +62,6 @@ public class CrudAlunoService {
         System.out.println("Digite o nome do aluno: ");
         String nome = in.next();
 
-        System.out.println();
         System.out.println("Digite a idade do aluno: ");
         Integer idade = in.nextInt();
 
@@ -129,8 +128,8 @@ public class CrudAlunoService {
             System.out.println("Idade: " + aluno.getNome());
             System.out.println("Disciplinas: [");
 
-            if (aluno.getDisciplina() != null) {
-                for (Disciplina disciplina : aluno.getDisciplina()) {
+            if (aluno.getDisciplinas() != null) {
+                for (Disciplina disciplina : aluno.getDisciplinas()) {
                 System.out.println("\tNome:" + disciplina.getNome());
                 System.out.println("\tSemestre:" + disciplina.getSemestre());
                 System.out.println();

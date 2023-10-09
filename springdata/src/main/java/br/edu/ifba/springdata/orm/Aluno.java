@@ -1,14 +1,16 @@
 package br.edu.ifba.springdata.orm;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "alunos")
@@ -23,17 +25,20 @@ public class Aluno {
        private Integer idade;
 
        //a entidade está sendo mapiada pelo atributo aluno da classe disciplina em um relacionamento ManyToMany
-       @ManyToMany(mappedBy = "alunos")
-       List<Disciplina> disciplina;
+       /*
+        * o set é para que entregue um conjunto que não se repita os atributos
+        */
+       @ManyToMany(mappedBy = "alunos", fetch = FetchType.LAZY)
+       private Set<Disciplina> disciplinas;
 
         public Aluno() {
         }
 
-        public Aluno(Long id, String nome, Integer idade, List<Disciplina> disciplina) {
+        public Aluno(Long id, String nome, Integer idade, Set<Disciplina> disciplinas) {
             this.id = id;
             this.nome = nome;
             this.idade = idade;
-            this.disciplina = disciplina;
+            this.disciplinas = disciplinas;
         }
 
         public Long getId() {
@@ -60,18 +65,17 @@ public class Aluno {
             this.idade = idade;
         }
 
-        public List<Disciplina> getDisciplina() {
-            return disciplina;
+        public Set<Disciplina> getDisciplinas() {
+            return disciplinas;
         }
 
-        public void setDisciplina(List<Disciplina> disciplina) {
-            this.disciplina = disciplina;
+        public void setDisciplinas(Set<Disciplina> disciplinas) {
+            this.disciplinas = disciplinas;
         }
 
         @Override
         public String toString() {
-            return "Aluno [id=" + id + ", nome=" + nome + ", idade=" + idade + ", disciplina=" + disciplina + "]";
+            return "Aluno [id=" + id + ", nome=" + nome + ", idade=" + idade + ", disciplinas=" + disciplinas + "]";
         }
-
 
 }
