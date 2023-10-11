@@ -1,33 +1,73 @@
 package br.edu.ifba.springdata;
+import java.util.Scanner;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import br.edu.ifba.springdata.orm.Professor;
-import repositoy.ProfessorRepository;
+import br.edu.ifba.springdata.service.CrudAlunoService;
+import br.edu.ifba.springdata.service.CrudDisciplinaService;
+import br.edu.ifba.springdata.service.CrudProfessorService;
+import br.edu.ifba.springdata.service.RelatorioService;
 
 @SpringBootApplication
 public class SpringdataApplication implements CommandLineRunner{
-	//injenção de dependencias
-    private ProfessorRepository repository;
-	
-	public SpringdataApplication(ProfessorRepository repository){
-		this.repository = repository;
+	private CrudProfessorService professorService;
+	private CrudDisciplinaService disciplinaService;
+	private CrudAlunoService alunoService;
+	private RelatorioService relatorioService;
+
+	//os objetos  passadp por parametros são injetados automaticamente pelo spring
+	//pq suas classes possuem a anotação @Service
+	public SpringdataApplication(CrudProfessorService professorService,
+								CrudDisciplinaService disciplinaService,
+								CrudAlunoService alunoService,
+								RelatorioService relatorioService){
+		this.professorService = professorService;
+		this.disciplinaService = disciplinaService;
+		this.alunoService = alunoService;
+		this.relatorioService = relatorioService;
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringdataApplication.class, args);
-		
+
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		//throw new UnsupportedOperationException("Unimplemented method 'run'");
-        Professor professor = new Professor("Luana", "abc");
-		this.repository.save(professor);
-	}
-	
+		Boolean isTrue = true;
+		Scanner in = new Scanner(System.in);
 
+		while(isTrue){
+			System.out.println("Qual entidade você deseja interagi1r?");
+			System.out.println("0 - sair");
+			System.out.println("1 - professor");
+			System.out.println("2 - disciplina");
+			System.out.println("3 - aluno");
+			System.out.println("4 - relatorio");
+
+
+			int opcao = in.nextInt();
+
+			switch(opcao){
+				case 1:
+				    this.professorService.menu(in);
+				    break;
+				case 2:
+				    this.disciplinaService.menu(in);
+				    break;
+				case 3:
+				    this.alunoService.menu(in);
+				    break;
+				case 4:
+				    this.relatorioService.menu(in);
+				    break;
+				default:
+				 isTrue = false;
+				 break;
+			}
+
+		}
+	}
 }
